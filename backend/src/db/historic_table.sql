@@ -1,0 +1,7 @@
+CREATE TABLE historic(
+	id SERIAL PRIMARY KEY,
+	expression VARCHAR(255) NOT NULL,
+	result DECIMAL(18, 2) NOT NULL,
+	calculated_at TIMESTAMP DEFAULT NOW(),
+	status VARCHAR(100)
+);
