@@ -1,131 +1,165 @@
-import { StyleSheet } from 'react-native';
+/* import { StyleSheet } from 'react-native';
 
-const styleCalculator = StyleSheet.create({
-  container: {
+export /* const styles = StyleSheet.create({
+  container: { 
+    flex: 1, 
+    backgroundColor: '#fdfdfd', 
+    paddingTop: isLargeScreen ? 40 : 80,
+    alignItems: 'center', 
+  },
+
+  mainWrapper: {
+    width: '100%',
+    maxWidth: isLargeScreen ? 500 : '100%', 
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    alignSelf: 'center',
+    paddingHorizontal: isLargeScreen ? 10 : 0,
   },
-  historyContainer: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 10,
-  },
-  historyTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#333',
-  },
-  historyList: {
-    paddingBottom: 10,
-  },
-  historyItem: {
-    marginBottom: 10,
-  },
-  historyText: {
-    fontSize: 16,
-    color: '#2b2b80',
-    fontWeight: '600',
-  },
-  historyDate: {
-    fontSize: 12,
-    color: '#777',
-  },
-  displayContainer: {
-    backgroundColor: '#FFF',
-    padding: 15,
-    marginHorizontal: 15,
-    borderRadius: 8,
+
+  topBar: { 
+    paddingHorizontal: 15, 
+    marginBottom: 15, 
     alignItems: 'flex-end',
-    borderWidth: 1,
+    width: '100%',
+  },
+  navButton: { 
+    backgroundColor: '#40b5e4', 
+    paddingVertical: 10, 
+    paddingHorizontal: 18, 
+    borderRadius: 8 
+  },
+  navButtonText: { 
+    color: '#FFF', 
+    fontWeight: 'bold', 
+    fontSize: 14 
+  },
+  
+  headerScreen: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    paddingHorizontal: 20, 
+    marginBottom: 20,
+    width: '100%',
+  },
+  screenTitle: { 
+    fontSize: isLargeScreen ? 24 : 22, 
+    fontWeight: 'bold', 
+    color: '#333' 
+  },
+  backButton: { 
+    backgroundColor: '#1d62b1', 
+    paddingVertical: 8, 
+    paddingHorizontal: 14, 
+    borderRadius: 6 
+  },
+  backButtonText: { 
+    color: '#FFF', 
+    fontWeight: 'bold' 
+  },
+
+  historyItemFull: { 
+    backgroundColor: '#FFF', 
+    padding: 16, 
+    borderRadius: 8, 
+    marginBottom: 10, 
+    borderWidth: 1, 
     borderColor: '#E0E0E0',
+    width: '100%',
   },
-  displayText: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#111',
+  historyTextFull: { 
+    fontSize: 18, 
+    color: '#1c5ca5', 
+    fontWeight: '600' 
   },
-  keypadContainer: {
+  historyDateFull: { 
+    fontSize: 12, 
+    color: '#777', 
+    marginTop: 4 
+  },
+
+  displayContainer: { 
+    backgroundColor: '#FFF', 
+    padding: 24, 
+    marginHorizontal: 15, 
+    borderRadius: 10, 
+    alignItems: 'flex-end', 
+    borderWidth: 1, 
+    borderColor: '#E0E0E0', 
+    marginBottom: 20,
+    width: '100%',
+  },
+  displayText: { 
+    fontSize: isLargeScreen ? 36 : 32, 
+    fontWeight: 'bold', 
+    color: '#111' 
+  },
+
+  keypadContainer: { 
     padding: 15,
+    width: '100%',
   },
-  topRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
+  row: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    marginBottom: 12 
   },
-  copyButton: {
-    backgroundColor: '#8E8E93',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 6,
+  btnNum: { 
+    backgroundColor: '#007AFF', 
+    width: '22%', 
+    height: isLargeScreen ? 60 : 50, 
+    borderRadius: 8, 
+    justifyContent: 'center', 
+    alignItems: 'center' 
   },
-  copyButtonText: {
-    color: '#FFF',
-    fontWeight: 'bold',
+  btnOp: { 
+    backgroundColor: '#9ac7ec', 
+    width: '22%', 
+    height: isLargeScreen ? 60 : 50, 
+    borderRadius: 8, 
+    justifyContent: 'center', 
+    alignItems: 'center' 
   },
-  clearButton: {
-    backgroundColor: '#FF3B30',
-    width: 45,
-    height: 40,
-    borderRadius: 6,
-    justifyContent: 'center',
-    alignItems: 'center',
+  btnZero: { 
+    backgroundColor: '#007AFF', 
+    width: '47%', 
+    height: isLargeScreen ? 60 : 50, 
+    borderRadius: 8, 
+    justifyContent: 'center', 
+    alignItems: 'center' 
   },
-  clearButtonText: {
-    color: '#FFF',
-    fontSize: 18,
-    fontWeight: 'bold',
+  btnEqual: { 
+    backgroundColor: '#1d62b1', 
+    width: '22%', 
+    height: isLargeScreen ? 60 : 50, 
+    borderRadius: 8, 
+    justifyContent: 'center', 
+    alignItems: 'center' 
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
+  copyButton: { 
+    backgroundColor: '#313131', 
+    width: '47%', 
+    height: isLargeScreen ? 48 : 40, 
+    borderRadius: 6, 
+    justifyContent: 'center', 
+    alignItems: 'center' 
   },
-  btnNum: {
-    backgroundColor: '#007AFF',
-    width: '22%',
-    height: 50,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
+  clearButton: { 
+    backgroundColor: '#309bff', 
+    width: '47%', 
+    height: isLargeScreen ? 48 : 40, 
+    borderRadius: 6, 
+    justifyContent: 'center', 
+    alignItems: 'center' 
   },
-  btnText: {
-    color: '#FFF',
-    fontSize: 20,
-    fontWeight: 'bold',
+  btnText: { 
+    color: '#FFF', 
+    fontSize: isLargeScreen ? 22 : 20, 
+    fontWeight: 'bold' 
   },
-  btnOp: {
-    backgroundColor: '#E5E5EA',
-    width: '22%',
-    height: 50,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  btnOpText: {
-    color: '#000',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  btnZero: {
-    backgroundColor: '#007AFF',
-    width: '47%',
-    height: 50,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  btnEqual: {
-    backgroundColor: '#34C759',
-    width: '22%',
-    height: 50,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  btnEqualText: {
-    color: '#FFF',
-    fontSize: 22,
-    fontWeight: 'bold',
+  btnOpText: { 
+    color: '#000', 
+    fontSize: isLargeScreen ? 22 : 20, 
+    fontWeight: 'bold' 
   }
-});
+}); */ 

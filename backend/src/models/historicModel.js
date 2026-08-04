@@ -1,24 +1,46 @@
-const db = require('../src/db/index.js');
+const db = require('../db');
 
 class HistoricModel {
+  static async create({ expression, result, status }) {
+    const stringExpression = String(expression || '').trim();
 
-  static async create({ expression, result, calculated_at, status }) {
     const [record] = await db('historic')
       .insert({
-        expression,
+        expression: stringExpression,
         result,
-        calculated_at: calculated_at || db.fn.now(),
-        status: status || 'sucesso'
+        status: status || 'SUCCESS',
+        calculated_at: db.fn.now(), 
       })
       .returning('*');
 
     return record;
   }
 
-  static async findAll() {
+  static async findAll({ limit = 20, page = 1 } = {}) {
+    const offset = (page - 1) * limit;
+
     return await db('historic')
-      .select('*')
-      .orderBy('calculated_at', 'desc');
+      .select(
+        'id',
+        'expression',
+        'result',
+        'calculated_at',
+        'status'
+      )
+      .orderBy('calculated_at', 'desc')
+      .limit(limit)
+      .offset(offset);
+  }
+
+  static async findById(id) {
+    return await db('historic')
+      .where({ id })
+      .first();
+  }
+
+  static async deleteAll() {
+    return await db('historic')
+      .del();
   }
 }
 

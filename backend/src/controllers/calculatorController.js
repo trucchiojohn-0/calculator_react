@@ -1,55 +1,46 @@
-const knex = require('../db'); 
+const { evaluate } = require('mathjs');
+const HistoricModel = require('../models/historicModel');
 
 const CalculatorController = {
-  calculate: async (req, res) => {
+  async calculate(req, res) {
     try {
-      const { expressao, resultado } = req.body;
+      const { expression } = req.body;
 
-      if (expressao === undefined || resultado === undefined) {
-        return res.status(400).json({ error: 'Os campos "expressao" e "resultado" são obrigatórios.' });
+      if (!expression) {
+        return res.status(400).json({ error: 'O campo "expression" é obrigatório.' });
       }
 
-      if (typeof expressao !== 'string' || typeof resultado !== 'number') {
-        return res.status(400).json({ error: 'Tipos de dados inválidos fornecidos.' });
+      const sanitizedExpression = String(expression).replace(/X/g, '*');
+
+      let result;
+      try {
+        result = evaluate(sanitizedExpression);
+      } catch (mathErr) {
+        return res.status(400).json({ error: 'Expressão matemática inválida.' });
       }
 
-      if (expressao.length > 255) {
-        return res.status(400).json({ error: 'A expressão excede o limite de caracteres permitido.' });
-      }
+      const history = await HistoricModel.create({
+        expression: sanitizedExpression,
+        result,
+        status: 'SUCCESS',
+      });
 
-      const [novoHistorico] = await knex('historic')
-        .insert({
-          expression: expressao.trim(),
-          result: resultado
-        })
-        .returning('*');
-
-      return res.status(201).json(novoHistorico);
-    } catch (error) {
-      console.error('Erro na rota /calculate:', error);
-      return res.status(500).json({ error: 'Erro interno no servidor' });
+      return res.status(201).json(history);
+    } catch (err) {
+      console.error('[CalculatorController.calculate Error]:', err);
+      return res.status(500).json({ error: 'Erro interno ao processar o cálculo.' });
     }
   },
 
-  getHistory: async (req, res) => {
+  async getHistory(req, res) {
     try {
-
-      const limit = Math.min(parseInt(req.query.limit, 10) || 20, 100);
-      const page = Math.max(parseInt(req.query.page, 10) || 1, 1);
-      const offset = (page - 1) * limit;
-
-      const history = await knex('historic')
-        .select('id', 'expression', 'result', 'created_at') // Seleção explícita de colunas em vez de '*'
-        .orderBy('id', 'desc')
-        .limit(limit)
-        .offset(offset);
-
+      const history = await HistoricModel.findAll();
       return res.status(200).json(history);
-    } catch (error) {
-      console.error('Erro na rota /historic:', error);
-      return res.status(500).json({ error: 'Erro ao buscar histórico' });
+    } catch (err) {
+      console.error('[CalculatorController.getHistory Error]:', err);
+      return res.status(500).json({ error: 'Erro ao buscar o histórico.' });
     }
-  }
+  },
 };
 
 module.exports = CalculatorController;

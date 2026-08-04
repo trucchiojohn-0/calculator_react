@@ -1,24 +1,23 @@
-# Dependências do Backend
+# Dependencias 
 
 node_modules/
 backend/node_modules/
 frontend/node_modules/
 
-# Dependencias do Frontend
-
+# Expo e dependencias
 .expo/
 frontend/.expo/
 dist/
 web-build/
 *.orig.*
 
-# Logs do Node / Expo / NPM
+# Gerenciadores de pacotes
 npm-debug.*
 yarn-debug.*
 yarn-error.*
 *.log
 
-# Certificados, Chaves e Credenciais (Segurança)
+# Segurança 
 
 *.jks
 *.p8
@@ -27,16 +26,9 @@ yarn-error.*
 *.pem
 *.mobileprovision
 
-# Variáveis de Ambiente
+# Variáveis de ambiente
 
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-backend/.env
-
-# VS Code 
-.vscode/*
-!.vscode/settings.json
-.idea/
+.env.*
+*.env
+*.env.*
