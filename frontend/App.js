@@ -273,8 +273,8 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 12
+    justifyContent: 'space-around',
+    marginBottom: 10
   },
   btnNum: {
     backgroundColor: '#007AFF',
